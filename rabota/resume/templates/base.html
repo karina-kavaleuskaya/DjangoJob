@@ -1,0 +1,87 @@
+{% load static %}
+
+<style>
+    body {
+  font-family: Arial,
+  text-align: left;
+  font-size: medium;
+}
+
+    h1 {
+        text-align: left;
+        padding: 20px;
+        background-color: #f2f2f2;
+    }
+
+    .navbar {
+        background-color: #333;
+        padding: 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: left;
+        color: #fff;
+        font-family: Arial, sans-serif;
+    }
+
+    .navbar a {
+        text-decoration: none;
+        color: #fff;
+        font-weight: bold;
+        margin-right: 10px;
+        padding: 10px 16px;
+        border-radius: 4px;
+        transition: background-color 0.3s;
+    }
+
+    .navbar a:hover {
+        background-color: #f44336;
+    }
+
+    .navbar form {
+        margin-left: 10px;
+    }
+
+    .navbar button {
+        background-color: #f44336;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        padding: 10px 16px;
+        cursor: pointer;
+        font-weight: bold;
+        transition: background-color 0.3s;
+    }
+
+    .navbar button:hover {
+        background-color: #d32f2f;
+    }
+
+</style>
+
+<body>
+    <h1>Rabota</h1>
+
+    <div class="navbar">
+        {% if request.user.is_authenticated %}
+            {% if request.user.company %}
+                <a href="{% url 'resume_list' %}">Resumes</a>
+                <a href="{% url 'create_job' %}">Create Job</a>
+                <a href="{% url 'job_list' %}">My Jobs</a>
+            {% else %}
+                <a href="{% url 'job_list' %}">Jobs</a>
+                <a href="{% url 'resume_list' %}">My Resumes</a>
+                <a href="{% url 'create_resume' %}">Create Resume</a>
+            {% endif %}
+            <form method="post" action="{% url 'logout' %}">
+                {% csrf_token %}
+                <button type="submit">Log Out</button>
+            </form>
+        {% else %}
+            <a href="{% url 'signup' %}">Sign Up</a>
+            <a href="{% url 'login' %}">Log In</a>
+        {% endif %}
+    </div>
+
+    {% block content %}
+    {% endblock %}
+</body>

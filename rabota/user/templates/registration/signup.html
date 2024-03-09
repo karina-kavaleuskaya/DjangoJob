@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Registration</h2>
+
+  <form method="post">
+    {% csrf_token %}
+    {{ form.username.label_tag }} {{ form.username }}
+    {{ form.password1.label_tag }} {{ form.password1 }}
+    {{ form.password2.label_tag }} {{ form.password2 }}
+    {{ form.company.label_tag }} {{ form.company }}
+    <input type="submit" value="signin">
+  </form>
+
+{% endblock %}

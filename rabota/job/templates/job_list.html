@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<form method="GET" action="{% url 'resume_list' %}">
+        <input type="text" name="search" value="{{ search_query }}">
+        <button type="submit">Search</button>
+    </form>
+    {% for job in jobs %}
+        <h1><a href="{% url 'job' job_id=job.id %}">{{ job.position }}</a></h1>
+        <h3>{{ job.company_name }}</h3>
+        <p>{{job.country}}</p>
+        <p>{{job.salary}}</p>
+        <div class="date">
+            {{ job.created_at }}
+        </div>
+        <hr>
+    {% endfor %}
+
+    {% include "pagination.html" with page=jobs %}
+{% endblock %}
